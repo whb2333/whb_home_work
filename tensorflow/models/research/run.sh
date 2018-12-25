@@ -10,7 +10,7 @@ export PYTHONPATH=$PYTHONPATH:$DIR:$DIR/slim:$DIR/object_detection
 
 # 定义各目录
 output_dir=/output  # 训练目录
-dataset_dir=/data/ai100/quiz-w8 # 数据集目录，这里是写死的，记得修改
+dataset_dir=/data/weixin-34916068/week9work # 数据集目录，这里是写死的，记得修改
 
 train_dir=$output_dir/train
 checkpoint_dir=$train_dir
@@ -35,10 +35,10 @@ do
     sed -i "s/^  num_steps: $last$/  num_steps: $current/g" $pipeline_config_path  # 通过num_steps控制一次训练最多100step
 
     echo "############" $i "training #################"
-    python ./object_detection/train.py --train_dir=$train_dir --pipeline_config_path=$pipeline_config_path
+    python ./object_detection/legacy/train.py --train_dir=$train_dir --pipeline_config_path=$pipeline_config_path
 
     echo "############" $i "evaluating, this takes a long while #################"
-    python ./object_detection/eval.py --checkpoint_dir=$checkpoint_dir --eval_dir=$eval_dir --pipeline_config_path=$pipeline_config_path
+    python ./object_detection/legacy/eval.py --checkpoint_dir=$checkpoint_dir --eval_dir=$eval_dir --pipeline_config_path=$pipeline_config_path
 done
 
 # 导出模型
